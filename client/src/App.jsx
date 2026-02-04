@@ -8,8 +8,10 @@ function App() {
   const [error, setError] = useState(null);
 
   const loadData = async(formData) => {
+    // This line converts the formData object into a string format that can be used in a URL
+    const queryString = new URLSearchParams(formData).toString();
     try {
-      const response = await fetch(`http://localhost:8080/questions`);
+      const response = await fetch(`/api/questions?${queryString}`);
       const data = await response.json();
       console.log(data);
 

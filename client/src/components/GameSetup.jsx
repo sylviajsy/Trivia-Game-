@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import categories from '../data/categories';
 
 const GameSetup = ({ onSubmit }) => {
-    const noQuestion = useRef();
+    const userAmount = useRef();
     const userType = useRef();
     const userDifficulty = useRef();
     const userCategory = useRef();
@@ -11,7 +11,7 @@ const GameSetup = ({ onSubmit }) => {
         e.preventDefault();
 
         const formData = {
-            question: noQuestion.current.value,
+            amount: userAmount.current.value,
             type: userType.current.value,
             difficulty: userDifficulty.current.value,
             category: userCategory.current.value
@@ -25,7 +25,7 @@ const GameSetup = ({ onSubmit }) => {
         <h2>Game Settings</h2>
         <form onSubmit={handleSubmit}>
             <label>Number of questions</label>
-            <input type="number" required placeholder="Number of questions" defaultValue="10" ref={noQuestion}/>
+            <input type="number" required placeholder="Number of questions" defaultValue="10" ref={userAmount}/>
 
             <label>Type</label>
             <select ref={userType} defaultValue="">
