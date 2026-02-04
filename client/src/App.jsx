@@ -30,6 +30,7 @@ function App() {
 
   return (
     <>
+      <h1>Trivia Game</h1>
       <GameSetup onSubmit={loadData}/>
     </>
   )
