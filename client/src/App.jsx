@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react'
 import './App.css'
 import GameSetup from './components/GameSetup';
+import GamePlay from './components/GamePlay';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -33,7 +34,11 @@ function App() {
   return (
     <>
       <h1>Trivia Game</h1>
-      <GameSetup onSubmit={loadData}/>
+      {question.length === 0 ? (
+        <GameSetup onSubmit={loadData}/>
+      ):(
+        <GamePlay question={question}/>
+      )}
     </>
   )
 }
