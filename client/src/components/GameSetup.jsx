@@ -1,4 +1,5 @@
 import React, { useRef } from 'react'
+import categories from '../data/categories';
 
 const GameSetup = ({ onSubmit }) => {
     const noQuestion = useRef();
@@ -15,7 +16,7 @@ const GameSetup = ({ onSubmit }) => {
             difficulty: userDifficulty.current.value,
             category: userCategory.current.value
         }
-
+        console.log("Form data", formData);
         onSubmit(formData);
     }
 
@@ -42,6 +43,14 @@ const GameSetup = ({ onSubmit }) => {
             </select>
 
             <label>Category</label>
+            <select ref={userCategory} defaultValue="">
+                {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                        {cat.name}
+                    </option>
+                ))}
+            </select>
+
             <button type="submit">Start Game</button>
         </form>
     </div>
