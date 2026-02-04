@@ -13,8 +13,8 @@ function App() {
       console.log(data);
 
       if (data.response_code == "0"){
-        console.log("Data Received:", data);
-        setQuestion(data);
+        console.log("Data Received:", data.results);
+        setQuestion(data.results);
       } else {
         setError(data.message);
       }
