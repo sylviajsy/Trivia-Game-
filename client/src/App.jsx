@@ -27,9 +27,9 @@ function App() {
     }
   } 
 
-  useEffect(()=>{
-      loadData()
-    },[])
+  // useEffect(()=>{
+  //     loadData()
+  //   },[])
 
   return (
     <>
