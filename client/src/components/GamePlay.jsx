@@ -1,3 +1,4 @@
+import { setOptions } from 'leaflet';
 import React from 'react'
 import { useState } from 'react';
 
@@ -20,9 +21,12 @@ const GamePlay = ({ question }) => {
         options = [currentQuestion.correct_answer, ...currentQuestion.incorrect_answers];
     }
 
-    // const handleSubmit = () => {
-
-    // }
+    const handleSelection = (option) => {
+        setSelected(prev => ({
+            ...prev,
+            [index]: option
+        }))
+    }
 
   return (
     <div>
@@ -30,7 +34,7 @@ const GamePlay = ({ question }) => {
         {decodeHtml(currentQuestion.question)}
       </h3>
       {options.map((option,index)=>{
-        return <button key={index}>
+        return <button key={index} onClick={() => handleSelection(option)}>
             {decodeHtml(option)}
         </button>
       })}
