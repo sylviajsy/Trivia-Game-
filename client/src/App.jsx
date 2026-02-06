@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react'
 import './App.css'
 import GameSetup from './components/GameSetup';
 import GamePlay from './components/GamePlay';
+import GameResult from './components/GameResult';
 
 function App() {
   // const [count, setCount] = useState(0);
@@ -31,8 +32,8 @@ function App() {
 
   const handleGameEnd = (finalAnswers) => {
     let score = 0;
-    question.foreach((item,index) => {
-      if(finalAnswers[index] == q.correct_answer){
+    question.forEach((item,index) => {
+      if(finalAnswers[index] == item.correct_answer){
         score ++;
       }
     })
@@ -47,6 +48,7 @@ function App() {
       ):(
         <GamePlay question={question} gameEnd={handleGameEnd}/>
       )}
+      <GameResult finalScore={finalScore}/>
     </>
   )
 }
