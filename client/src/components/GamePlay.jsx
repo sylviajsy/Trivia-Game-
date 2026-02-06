@@ -7,7 +7,7 @@ function decodeHtml(str) {
     return doc.documentElement.textContent;
 }
 
-const GamePlay = ({ question }) => {
+const GamePlay = ({ question, gameEnd }) => {
     const [index, setIndex] = useState(0);
     const [selected, setSelected] = useState({});
 
@@ -31,6 +31,8 @@ const GamePlay = ({ question }) => {
     const handleNext = () => {
         if (index < question.length - 1){
             setIndex(prev => prev + 1);
+        } else {
+            gameEnd(selected);
         }
         console.log(selected);
     }

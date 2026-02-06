@@ -37,7 +37,7 @@ function App() {
       {question.length === 0 ? (
         <GameSetup onSubmit={loadData}/>
       ):(
-        <GamePlay question={question}/>
+        <GamePlay question={question} gameEnd={handleGameEnd}/>
       )}
     </>
   )
