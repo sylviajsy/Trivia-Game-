@@ -28,6 +28,13 @@ const GamePlay = ({ question }) => {
         }))
     }
 
+    const handleNext = () => {
+        if (index < question.length - 1){
+            setIndex(prev => prev + 1);
+        }
+        console.log(selected);
+    }
+
   return (
     <div>
       <h3>
@@ -38,6 +45,8 @@ const GamePlay = ({ question }) => {
             {decodeHtml(option)}
         </button>
       })}
+
+      <button onClick={handleNext}>Next</button>
     </div>
   )
 }
