@@ -8,8 +8,9 @@ function App() {
   // const [count, setCount] = useState(0);
   const [question, setQuestion] = useState([]);
   const [error, setError] = useState(null);
-  const [finalScore, setFinalScore] = useState(0);
-
+  const [finalScore, setFinalScore] = useState(null);
+  const [message, setMessage] = useState("");
+  // const [finalScore, setFinalScore] = useState(null);
 
   const loadData = async(formData) => {
     // This line converts the formData object into a string format that can be used in a URL
@@ -30,14 +31,28 @@ function App() {
     }
   } 
 
-  const handleGameEnd = (finalAnswers) => {
-    let score = 0;
-    question.forEach((item,index) => {
-      if(finalAnswers[index] == item.correct_answer){
-        score ++;
-      }
-    })
-    setFinalScore(score);
+  // Send result to backend for score and win/lose
+  const handleGameEnd = async(finalAnswers) => {
+    try {
+      const response = await fetch(`/api/results`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                questions: question,
+                userAnswers: finalAnswers
+            }),}
+        )
+
+      const data = await response.json();
+      console.log("backend result", data);
+      
+      setFinalScore(data.score);
+      setMessage(data.message);
+    } catch(error){
+      console.error(error);
+    }
   }
 
   return (
@@ -48,7 +63,7 @@ function App() {
       ):(
         <GamePlay question={question} gameEnd={handleGameEnd}/>
       )}
-      <GameResult finalScore={finalScore}/>
+      {finalScore != null && <GameResult finalScore={finalScore} message={message}/>}
     </>
   )
 }
