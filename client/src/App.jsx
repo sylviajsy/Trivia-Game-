@@ -7,6 +7,8 @@ function App() {
   // const [count, setCount] = useState(0);
   const [question, setQuestion] = useState([]);
   const [error, setError] = useState(null);
+  const [finalScore, setFinalScore] = useState(0);
+
 
   const loadData = async(formData) => {
     // This line converts the formData object into a string format that can be used in a URL
@@ -27,9 +29,15 @@ function App() {
     }
   } 
 
-  // useEffect(()=>{
-  //     loadData()
-  //   },[])
+  const handleGameEnd = (finalAnswers) => {
+    let score = 0;
+    question.foreach((item,index) => {
+      if(finalAnswers[index] == q.correct_answer){
+        score ++;
+      }
+    })
+    setFinalScore(score);
+  }
 
   return (
     <>
