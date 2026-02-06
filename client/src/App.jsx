@@ -58,12 +58,15 @@ function App() {
   return (
     <>
       <h1>Trivia Game</h1>
-      {question.length === 0 ? (
+      {}
+      
+      {finalScore != null ? (
+        <GameResult finalScore={finalScore} message={message}/>
+      ) : question.length === 0 ? (
         <GameSetup onSubmit={loadData}/>
       ):(
         <GamePlay question={question} gameEnd={handleGameEnd}/>
-      )}
-      {finalScore != null && <GameResult finalScore={finalScore} message={message}/>}
+      )} 
     </>
   )
 }
