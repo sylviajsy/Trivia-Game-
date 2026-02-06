@@ -7,6 +7,14 @@ function decodeHtml(str) {
     return doc.documentElement.textContent;
 }
 
+function shuffle(a){
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+  return a
+}
+
 const GamePlay = ({ question, gameEnd }) => {
     const [index, setIndex] = useState(0);
     const [selected, setSelected] = useState({});
