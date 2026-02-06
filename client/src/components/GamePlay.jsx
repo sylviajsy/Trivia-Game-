@@ -1,6 +1,6 @@
 import { setOptions } from 'leaflet';
 import React from 'react'
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 function decodeHtml(str) {
     const doc = new DOMParser().parseFromString(str, "text/html");
@@ -21,13 +21,16 @@ const GamePlay = ({ question, gameEnd }) => {
 
     const currentQuestion = question[index];
 
-    let options = [];
-    if (currentQuestion.type == 'boolean'){
-        options = ["True", "False"];
+    const options = useMemo(() => {
+        if (currentQuestion.type == 'boolean'){
+        return ["True", "False"];
     } else {
         // incorrect answers are in [], needs to spread 
-        options = [currentQuestion.correct_answer, ...currentQuestion.incorrect_answers];
+        const option = [currentQuestion.correct_answer, ...currentQuestion.incorrect_answers];
+         return shuffle(option);
     }
+    }, [currentQuestion]);
+    
 
     const handleSelection = (option) => {
         setSelected(prev => ({
@@ -56,8 +59,8 @@ const GamePlay = ({ question, gameEnd }) => {
       <h3>
         {decodeHtml(currentQuestion.question)}
       </h3>
-      {options.map((option,index)=>{
-        return <button key={index} onClick={() => handleSelection(option)}>
+      {options.map((option)=>{
+        return <button key={option} onClick={() => handleSelection(option)}>
             {decodeHtml(option)}
         </button>
       })}
