@@ -58,8 +58,6 @@ function App() {
   return (
     <>
       <h1>Trivia Game</h1>
-      {}
-      
       {finalScore != null ? (
         <GameResult finalScore={finalScore} message={message}/>
       ) : question.length === 0 ? (
