@@ -21,6 +21,7 @@ const GamePlay = ({ question, gameEnd }) => {
 
     const currentQuestion = question[index];
 
+    // Only shuffle when question changes, so when selecting, choices doesn't change
     const options = useMemo(() => {
         if (currentQuestion.type == 'boolean'){
         return ["True", "False"];
