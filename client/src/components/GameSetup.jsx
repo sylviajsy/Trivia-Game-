@@ -21,7 +21,7 @@ const GameSetup = ({ onSubmit }) => {
     }
 
   return (
-    <div>
+    <div className="settings">
         <h2>Game Settings</h2>
         <form onSubmit={handleSubmit}>
             <label>Number of questions</label>

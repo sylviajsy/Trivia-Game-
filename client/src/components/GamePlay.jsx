@@ -65,17 +65,23 @@ const GamePlay = ({ question, gameEnd }) => {
     }
 
   return (
-    <div>
-      <h3>
-        {decodeHtml(currentQuestion.question)}
-      </h3>
+    <div className='game'>
+        <h3 className='question'>
+            {decodeHtml(currentQuestion.question)}
+        </h3>
+      
+    <div className='options'>
       {options.map((option)=>{
         return <button key={option} onClick={() => handleSelection(option)}>
             {decodeHtml(option)}
         </button>
       })}
+    </div>
+
+    <div className="nav">
       <button onClick={handlePrev}>Prev</button>
       <button onClick={handleNext}>Next</button>
+    </div>
     </div>
   )
 }
