@@ -6,13 +6,22 @@ function decodeHtml(str) {
     const doc = new DOMParser().parseFromString(str, "text/html");
     return doc.documentElement.textContent;
 }
-
+// iterates from the end of the array toward the beginning,
+// swapping each element with a randomly selected element
+// that comes before it (or itself)
 function shuffle(a){
     for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [a[i], a[j]] = [a[j], a[i]];
     }
   return a
+}
+
+function shuffleNTimes(arr, times = 3) {
+  for (let i = 0; i < times; i++) {
+    shuffle(arr);
+  }
+  return arr;
 }
 
 const GamePlay = ({ question, gameEnd }) => {
@@ -28,7 +37,7 @@ const GamePlay = ({ question, gameEnd }) => {
     } else {
         // incorrect answers are in [], needs to spread 
         const option = [currentQuestion.correct_answer, ...currentQuestion.incorrect_answers];
-         return shuffle(option);
+         return shuffleNTimes(option);
     }
     }, [currentQuestion]);
     
