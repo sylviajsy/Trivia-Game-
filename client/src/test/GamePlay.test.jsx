@@ -27,7 +27,7 @@ describe('GamePlay Component', () => {
         render(<GamePlay question={questions} gameEnd={mockGameEnd} />);
 
         expect(screen.getByText('Capital of France?')).toBeInTheDocument();
-        // Button shoould use getByRole
+        // Button should use getByRole
         expect(screen.getByRole('button', { name: /Prev/i })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /Next/i })).toBeInTheDocument();
 
@@ -48,7 +48,27 @@ describe('GamePlay Component', () => {
         // Proceed to next question
         expect(screen.getByText('The sky is blue.')).toBeInTheDocument();
         await user.click(screen.getByRole('button', { name: /Prev/i }));
+        // Back to Q1
         expect(screen.getByText('Capital of France?')).toBeInTheDocument();
         expect(mockGameEnd).not.toHaveBeenCalled();
+    })
+
+    it('Remembers selections across questions and sends them on game end', async() => {
+        // Mock user
+        const user = userEvent.setup();
+
+        render(<GamePlay question={questions} gameEnd={mockGameEnd} />);
+
+        await user.click(screen.getByRole('button', { name: 'Paris' }));
+        await user.click(screen.getByRole('button', { name: /Next/i }));
+
+        await user.click(screen.getByRole('button', { name: 'False' }));
+        await user.click(screen.getByRole('button', { name: /Next/i }));
+
+        expect(mockGameEnd).toHaveBeenCalled();
+        expect(mockGameEnd).toHaveBeenCalledWith(expect.objectContaining({
+            0: 'Paris',
+            1: 'False'
+        }));
     })
 })
