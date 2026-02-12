@@ -38,7 +38,7 @@ describe('GamePlay Component', () => {
         })
     })
 
-    it('Click Next goes to next question; Prev goes back', async()=> {
+    it('Click Next goes to next question, Prev to prev question', async() => {
         // Mock user
         const user = userEvent.setup();
 
@@ -47,6 +47,8 @@ describe('GamePlay Component', () => {
         await user.click(screen.getByRole('button', { name: /Next/i }));
         // Proceed to next question
         expect(screen.getByText('The sky is blue.')).toBeInTheDocument();
+        await user.click(screen.getByRole('button', { name: /Prev/i }));
+        expect(screen.getByText('Capital of France?')).toBeInTheDocument();
         expect(mockGameEnd).not.toHaveBeenCalled();
     })
 })
