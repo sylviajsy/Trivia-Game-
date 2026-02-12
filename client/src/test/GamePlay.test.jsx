@@ -66,9 +66,34 @@ describe('GamePlay Component', () => {
         await user.click(screen.getByRole('button', { name: /Next/i }));
 
         expect(mockGameEnd).toHaveBeenCalled();
-        expect(mockGameEnd).toHaveBeenCalledWith(expect.objectContaining({
-            0: 'Paris',
-            1: 'False'
+        expect(mockGameEnd).toHaveBeenCalledWith(
+            expect.objectContaining({
+                0: 'Paris',
+                1: 'False'
+        }));
+    })
+
+    it('Change selections and sends them on game end', async() => {
+        // Mock user
+        const user = userEvent.setup();
+
+        render(<GamePlay question={questions} gameEnd={mockGameEnd} />);
+
+        await user.click(screen.getByRole('button', { name: 'Paris' }));
+        await user.click(screen.getByRole('button', { name: /Next/i }));
+
+        await user.click(screen.getByRole('button', { name: 'False' }));
+        await user.click(screen.getByRole('button', { name: /Prev/i }));
+
+        await user.click(screen.getByRole('button', { name: 'London' }));
+        await user.click(screen.getByRole('button', { name: /Next/i }));
+        await user.click(screen.getByRole('button', { name: /Next/i }));
+
+        expect(mockGameEnd).toHaveBeenCalled();
+        expect(mockGameEnd).toHaveBeenCalledWith(
+            expect.objectContaining({
+                0: 'London',
+                1: 'False'
         }));
     })
 })
