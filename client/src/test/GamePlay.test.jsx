@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
+import userEvent from '@testing-library/user-event';
 import GamePlay from '../components/GamePlay';
 
 // Mock Questions
@@ -23,11 +24,29 @@ const mockGameEnd = vi.fn();
 
 describe('GamePlay Component', () => {
     it('Renders Questions and options', ()=>{
-        render(<GamePlay question={questions} gameEnd={mockGameEnd}/>)
+        render(<GamePlay question={questions} gameEnd={mockGameEnd} />);
 
         expect(screen.getByText('Capital of France?')).toBeInTheDocument();
         // Button shoould use getByRole
         expect(screen.getByRole('button', { name: /Prev/i })).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /Next/i })).toBeInTheDocument();
+
+        // Test on shuffle
+        const mockOptions = ['London', 'Rome', 'Berlin', 'Paris'];
+        mockOptions.forEach((options)=>{
+            expect(screen.getByRole('button', { name: options })).toBeInTheDocument();
+        })
+    })
+
+    it('Click Next goes to next question; Prev goes back', async()=> {
+        // Mock user
+        const user = userEvent.setup();
+
+        render(<GamePlay question={questions} gameEnd={mockGameEnd} />);
+
+        await user.click(screen.getByRole('button', { name: /Next/i }));
+        // Proceed to next question
+        expect(screen.getByText('The sky is blue.')).toBeInTheDocument();
+        expect(mockGameEnd).not.toHaveBeenCalled();
     })
 })
