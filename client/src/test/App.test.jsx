@@ -79,7 +79,7 @@ describe('App Flow Test', () => {
         await user.click(screen.getByRole('button', { name: /start game/i }));
         await user.click(screen.getByRole('button', { name: /true/i }));
         await user.click(screen.getByRole('button', { name: /Next/i }));
-        // Todo: Test component is visible
+        
         expect(await screen.findByRole('heading', { name: /game end/i })).toBeInTheDocument();
 
         expect(global.fetch).toHaveBeenCalledTimes(2);

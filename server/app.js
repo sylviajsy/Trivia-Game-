@@ -5,6 +5,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const calculateScore = (req, res) => {
+    const { questions, userAnswers } = req.body;
+    
+    let score = 0;
+    questions.forEach((item,index) => {
+      if(userAnswers[index] == item.correct_answer){
+        score ++;
+      }
+    })
+
+    const isWinner = score >= (questions.length / 2);
+
+    res.json({
+        score: score,
+        result: isWinner,
+        message: isWinner ? "You Win! 🎉" : "You Lost! 💀"
+    });
+}
+
 app.get("/api/questions", async(req, res) => {
     const query = req.query;
 
@@ -26,23 +45,6 @@ app.get("/api/questions", async(req, res) => {
     }
 });
 
-app.post("/api/results", (req, res) => {
-    const { questions, userAnswers } = req.body;
-    
-    let score = 0;
-    questions.forEach((item,index) => {
-      if(userAnswers[index] == item.correct_answer){
-        score ++;
-      }
-    })
-
-    const isWinner = score >= (questions.length / 2);
-
-    res.json({
-        score: score,
-        result: isWinner,
-        message: isWinner ? "You Win! 🎉" : "You Lost! 💀"
-    });
-})
+app.post("/api/results", calculateScore);
 
 export default app;
