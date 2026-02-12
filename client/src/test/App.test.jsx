@@ -13,7 +13,7 @@ const mockQuestionData = {
             }]
         }
 
-describe('App Integration Test', () => {
+describe('App Flow Test', () => {
 
     beforeEach(() => {
         // clear fetch data
@@ -79,8 +79,8 @@ describe('App Integration Test', () => {
         await user.click(screen.getByRole('button', { name: /start game/i }));
         await user.click(screen.getByRole('button', { name: /true/i }));
         await user.click(screen.getByRole('button', { name: /Next/i }));
-
-        expect(await screen.findByText(/Win/i)).toBeInTheDocument();
+        // Todo: Test component is visible
+        expect(await screen.findByRole('heading', { name: /game end/i })).toBeInTheDocument();
 
         expect(global.fetch).toHaveBeenCalledTimes(2);
     })
