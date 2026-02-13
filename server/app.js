@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const calculateScore = (req, res) => {
+export const calculateScore = (req, res) => {
     const { questions, userAnswers } = req.body;
     
     let score = 0;
