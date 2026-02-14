@@ -8,5 +8,16 @@ export default defineConfig({
     proxy: {
       "/api": "http://localhost:8080"
     }
-  }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.js',
+    css: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      reportsDirectory: './coverage',
+    },
+  },
 })
